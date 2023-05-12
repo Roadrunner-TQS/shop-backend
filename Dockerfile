@@ -1,5 +1,4 @@
-FROM maven:3.8.2-jdk-8
-
+FROM maven:3.8.1-openjdk-17-slim
 WORKDIR /
 COPY . .
 RUN mvn clean install
