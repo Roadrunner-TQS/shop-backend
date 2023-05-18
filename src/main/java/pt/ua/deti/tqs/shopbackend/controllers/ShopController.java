@@ -83,4 +83,32 @@ public class ShopController {
                 .body(books);
     }
 
+    @PostMapping("/order/neworder")
+    @PreAuthorize("@authService.isAuthenticated(#token)")
+    public ResponseEntity<Object> createOrder(@RequestBody Order orderRequest, @RequestHeader("Authorization") String token) {
+        if (shopService.newOrder(orderRequest, token)) {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .contentType(APPLICATION_JSON)
+                    .body(new ErrorDTO("Order created"));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(APPLICATION_JSON)
+                .body(new ErrorDTO("Order not created"));
+    }
+
+    @GetMapping("/order")
+    @PreAuthorize("@authService.isAuthenticated(#token)")
+    public ResponseEntity<Object> listOrdersByClient(@RequestHeader("Authorization") String token){
+        List<OrderDTO> orders = shopService.getOrdersByClient(token);
+        if (orders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(APPLICATION_JSON)
+                    .body(new ErrorDTO("Orders not found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(APPLICATION_JSON)
+                .body(orders);
+
+    }
+
 }

@@ -3,11 +3,14 @@ package pt.ua.deti.tqs.shopbackend.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginRequest;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginResponse;
 import pt.ua.deti.tqs.shopbackend.model.auth.RegisterRequest;
+import pt.ua.deti.tqs.shopbackend.model.dto.ClientDTO;
 import pt.ua.deti.tqs.shopbackend.model.dto.ErrorDTO;
+import pt.ua.deti.tqs.shopbackend.model.dto.SuccessDTO;
 import pt.ua.deti.tqs.shopbackend.services.AuthService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -56,6 +59,39 @@ public class AuthControllers {
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(APPLICATION_JSON)
 				.body(response);
+	}
+
+	@PutMapping("/logout")
+	@PreAuthorize("@authService.isAuthenticated(#token)")
+	public ResponseEntity<Object> logout(@RequestHeader("Authorization") String token){
+		log.info("Logout request");
+		if (authService.logout(token)){
+			log.info("Logout successful");
+			return ResponseEntity.status(HttpStatus.OK)
+					.contentType(APPLICATION_JSON)
+					.body(new SuccessDTO("Logout successful"));
+		}
+		log.error("Invalid credentials");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.contentType(APPLICATION_JSON)
+				.body(INVALID_CREDENTIAlS);
+	}
+
+	@GetMapping("/me")
+	@PreAuthorize("@authService.isAuthenticated(#token)")
+	public ResponseEntity<Object> me(@RequestHeader("Authorization") String token){
+		log.info("Me request");
+		ClientDTO client = authService.currentUser(token);
+		if (client == null) {
+			log.error("Client not found");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.contentType(APPLICATION_JSON)
+					.body(new ErrorDTO("Client not found"));
+		}
+		log.info("Me successful");
+		return ResponseEntity.status(HttpStatus.OK)
+				.contentType(APPLICATION_JSON)
+				.body(client);
 	}
 
 }

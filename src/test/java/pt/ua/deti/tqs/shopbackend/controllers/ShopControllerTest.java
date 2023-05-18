@@ -246,5 +246,4 @@ class ShopControllerTest {
 
         verify(shopService, times(1)).getBooksByCategory(any(), any());
     }
-
 }
