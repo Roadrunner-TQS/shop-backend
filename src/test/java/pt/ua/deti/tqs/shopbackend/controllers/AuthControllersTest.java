@@ -97,7 +97,7 @@ class AuthControllersTest {
                 .contentType("application/json")
                 .body(loginRequest)
                 .when()
-                .get("/api/auth/login")
+                .post("/api/auth/login")
                 .then()
                 .statusCode(200)
                 .body("token", equalTo(response.getToken()));
@@ -115,7 +115,7 @@ class AuthControllersTest {
                 .contentType("application/json")
                 .body(loginRequest)
                 .when()
-                .get("/api/auth/login")
+                .post("/api/auth/login")
                 .then()
                 .statusCode(400)
                 .body("message", equalTo("Invalid credentials"));

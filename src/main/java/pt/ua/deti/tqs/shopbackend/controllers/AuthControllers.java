@@ -42,7 +42,7 @@ public class AuthControllers {
 					.body(new LoginResponse(token));
 	}
 
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
 		log.info("Login request");
 		LoginResponse response = authService.login(loginRequest);

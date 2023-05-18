@@ -77,7 +77,7 @@ class ShopServiceTest {
         verify(categoryRepository, times(1)).findAll();
     }
     @Test
-    public void testGetCategories_WithoutLimit_ReturnsAllCategories() {
+    void testGetCategories_WithoutLimit_ReturnsAllCategories() {
         List<Category> categories = Arrays.asList(
                 new Category(UUID.randomUUID(), "name1", "slug1"),
                 new Category(UUID.randomUUID(), "name2", "slug2"),
@@ -93,7 +93,7 @@ class ShopServiceTest {
         verify(categoryRepository, times(1)).findAll();
     }
     @Test
-    public void testGetBooks_WithSortNewestAndQuery_ReturnsFilteredAndSortedBooks() {
+    void testGetBooks_WithSortNewestAndQuery_ReturnsFilteredAndSortedBooks() {
         String sort = "newest";
         String q = "A Game of Thrones";
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
@@ -120,7 +120,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBooks_WithSortOldest_ReturnsFilteredAndSortedBooks() {
+    void testGetBooks_WithSortOldest_ReturnsFilteredAndSortedBooks() {
         String sort = "oldest";
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
         List<Category> categories = Arrays.asList(
@@ -223,7 +223,7 @@ class ShopServiceTest {
         verify(bookRepository, times(1)).findAll();
     }
     @Test
-    public void testGetBooks_WithPageAndLimit_ReturnsPagedBooks() {
+    void testGetBooks_WithPageAndLimit_ReturnsPagedBooks() {
         Integer page = 2;
         Integer limit = 3;
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
@@ -252,7 +252,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBookById_ExistingId_ReturnsBook() {
+    void testGetBookById_ExistingId_ReturnsBook() {
         UUID bookId = UUID.randomUUID();
         Book expectedBook = new Book(bookId, "A Game of Thrones", null, 10F, 0, "Leya", 1996, 694, "description", "image", null);
 
@@ -265,7 +265,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBookById_NonExistingId_ReturnsNull() {
+    void testGetBookById_NonExistingId_ReturnsNull() {
         UUID bookId = UUID.randomUUID();
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
         Book result = shopService.getBookById(bookId);
@@ -274,7 +274,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBooksByCategory_WithLimit_ReturnsLimitedBooks() {
+    void testGetBooksByCategory_WithLimit_ReturnsLimitedBooks() {
         Integer limit = 2;
         Category category = new Category(UUID.randomUUID(), "name1", "slug1");
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
@@ -306,7 +306,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBooksByCategory_NoLimit_ReturnsAllBooks() {
+    void testGetBooksByCategory_NoLimit_ReturnsAllBooks() {
         Category category = new Category(UUID.randomUUID(), "name1", "slug1");
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
         List<Category> categories = Arrays.asList(
@@ -334,7 +334,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBooksByCategory_WithCategoryNotFound_ReturnsNull() {
+    void testGetBooksByCategory_WithCategoryNotFound_ReturnsNull() {
         String slug = "slug";
 
         when(categoryRepository.findBySlug(slug)).thenReturn(Optional.empty());
@@ -368,7 +368,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetOrdersByClient_InvalidToken_ReturnsNull() {
+    void testGetOrdersByClient_InvalidToken_ReturnsNull() {
         String token = "invalid_token";
 
         when(jwtTokenService.getEmailFromToken(token)).thenReturn(null);
@@ -382,7 +382,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetOrdersByClient_ClientNotFound_ReturnsNull() {
+    void testGetOrdersByClient_ClientNotFound_ReturnsNull() {
         String token = "valid_token";
         String email = "test@example.com";
 
@@ -398,7 +398,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testNewOrder_ValidOrder_SuccessfullySaved() {
+    void testNewOrder_ValidOrder_SuccessfullySaved() {
         String token = "valid_token";
         String email = "test@example.com";
         UUID bookId = UUID.randomUUID();
@@ -429,7 +429,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testNewOrder_InvalidToken_ReturnsFalse() {
+    void testNewOrder_InvalidToken_ReturnsFalse() {
         String token = "invalid_token";
         Order orderRequest = new Order();
 
