@@ -1,10 +1,14 @@
 package pt.ua.deti.tqs.shopbackend.services;
 
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import pt.ua.deti.tqs.shopbackend.data.*;
 import pt.ua.deti.tqs.shopbackend.model.Book;
 import pt.ua.deti.tqs.shopbackend.model.Category;
+import pt.ua.deti.tqs.shopbackend.model.Client;
+import pt.ua.deti.tqs.shopbackend.model.Order;
+import pt.ua.deti.tqs.shopbackend.model.dto.OrderDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +102,9 @@ public class ShopService {
             return bookRepository.findAllByCategories(Optional.of(category)).subList(0, limit);
         }
         return bookRepository.findAllByCategories(Optional.of(category));
+    }
+
+    public List<OrderDTO> getOrdersByClient(String token) {
+        return null;
     }
 }

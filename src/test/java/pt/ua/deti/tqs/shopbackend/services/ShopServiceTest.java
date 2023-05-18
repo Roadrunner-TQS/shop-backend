@@ -333,4 +333,69 @@ class ShopServiceTest {
         verify(bookRepository, times(1)).findAllByCategories(Optional.of(category));
     }
 
+    @Test
+    public void testGetBooksByCategory_WithCategoryNotFound_ReturnsNull() {
+        String slug = "slug";
+
+        when(categoryRepository.findBySlug(slug)).thenReturn(Optional.empty());
+
+        List<Book> result = shopService.getBooksByCategory(slug, null);
+
+        assertNull(result);
+        verify(categoryRepository, times(1)).findBySlug(slug);
+        verify(bookRepository, never()).findAllByCategories(any());
+    }
+    @Test
+    void testGetOrdersByClient_ValidToken_ReturnsOrderDTOList() {
+        String token = "valid_token";
+        String email = "test@example.com";
+        Client client = new Client();
+        client.setEmail(email);
+        List<Order> orders = new ArrayList<>();
+        orders.add(new Order());
+
+        when(jwtTokenService.getEmailFromToken(token)).thenReturn(email);
+        when(clientRepository.findByEmail(email)).thenReturn(Optional.of(client));
+        when(orderRepository.findAllByClient(client)).thenReturn(orders);
+
+        List<OrderDTO> result = shopService.getOrdersByClient(token);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(jwtTokenService, times(1)).getEmailFromToken(token);
+        verify(clientRepository, times(1)).findByEmail(email);
+        verify(orderRepository, times(1)).findAllByClient(client);
+    }
+
+    @Test
+    public void testGetOrdersByClient_InvalidToken_ReturnsNull() {
+        String token = "invalid_token";
+
+        when(jwtTokenService.getEmailFromToken(token)).thenReturn(null);
+
+        List<OrderDTO> result = shopService.getOrdersByClient(token);
+
+        assertNull(result);
+        verify(jwtTokenService, times(1)).getEmailFromToken(token);
+        verify(clientRepository, never()).findByEmail(anyString());
+        verify(orderRepository, never()).findAllByClient(any());
+    }
+
+    @Test
+    public void testGetOrdersByClient_ClientNotFound_ReturnsNull() {
+        String token = "valid_token";
+        String email = "test@example.com";
+
+        when(jwtTokenService.getEmailFromToken(token)).thenReturn(email);
+        when(clientRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        List<OrderDTO> result = shopService.getOrdersByClient(token);
+
+        assertNull(result);
+        verify(jwtTokenService, times(1)).getEmailFromToken(token);
+        verify(clientRepository, times(1)).findByEmail(email);
+        verify(orderRepository, never()).findAllByClient(any());
+    }
+
+
 }
