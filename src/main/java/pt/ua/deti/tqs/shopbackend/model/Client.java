@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pt.ua.deti.tqs.shopbackend.model.enums.Roles;
 
 import java.util.UUID;
@@ -39,5 +41,16 @@ public class Client {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    public void setPassword(String password) {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        this.password = encoder.encode(password);
+    }
+
+    public boolean checkPassword(String password) {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return encoder.matches(password, this.password);
+    }
+
 }
 
