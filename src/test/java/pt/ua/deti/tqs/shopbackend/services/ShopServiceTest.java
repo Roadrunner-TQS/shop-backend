@@ -273,5 +273,64 @@ class ShopServiceTest {
         verify(bookRepository, times(1)).findById(bookId);
     }
 
+    @Test
+    public void testGetBooksByCategory_WithLimit_ReturnsLimitedBooks() {
+        Integer limit = 2;
+        Category category = new Category(UUID.randomUUID(), "name1", "slug1");
+        Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
+        List<Category> categories = Arrays.asList(
+                category,
+                new Category(UUID.randomUUID(), "name2", "slug2"),
+                new Category(UUID.randomUUID(), "name3", "slug3")
+        );
+
+        List<Book> allBooks = Arrays.asList(
+                new Book(UUID.randomUUID(), "A Game of Thrones", author, 10F, 0, "Leya", 1996, 694, "description", "image", categories.subList(0, 1)),
+                new Book(UUID.randomUUID(), "A Clash of Kings", author, 10F, 0, "Leya", 1998, 768, "description", "image", categories.subList(0, 2)),
+                new Book(UUID.randomUUID(), "A Storm of Swords", author, 10F, 0, "Leya", 2000, 992, "description", "image", categories.subList(0, 1)),
+                new Book(UUID.randomUUID(), "A Feast for Crows", author, 10F, 0, "Leya", 2005, 784, "description", "image", categories.subList(0, 1))
+        );
+
+        when(categoryRepository.findBySlug(category.getSlug())).thenReturn(Optional.of(category));
+        when(bookRepository.findAllByCategories(Optional.of(category))).thenReturn(allBooks);
+
+        List<Book> result = shopService.getBooksByCategory(category.getSlug(), limit);
+
+        assertThat(result, hasSize(2));
+        assertThat(result, contains(
+                allBooks.get(0),
+                allBooks.get(1)
+        ));
+        verify(categoryRepository, times(1)).findBySlug(category.getSlug());
+        verify(bookRepository, times(1)).findAllByCategories(Optional.of(category));
+    }
+
+    @Test
+    public void testGetBooksByCategory_NoLimit_ReturnsAllBooks() {
+        Category category = new Category(UUID.randomUUID(), "name1", "slug1");
+        Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
+        List<Category> categories = Arrays.asList(
+                category,
+                new Category(UUID.randomUUID(), "name2", "slug2"),
+                new Category(UUID.randomUUID(), "name3", "slug3")
+        );
+
+        List<Book> allBooks = Arrays.asList(
+                new Book(UUID.randomUUID(), "A Game of Thrones", author, 10F, 0, "Leya", 1996, 694, "description", "image", categories.subList(0, 1)),
+                new Book(UUID.randomUUID(), "A Clash of Kings", author, 10F, 0, "Leya", 1998, 768, "description", "image", categories.subList(0, 2)),
+                new Book(UUID.randomUUID(), "A Storm of Swords", author, 10F, 0, "Leya", 2000, 992, "description", "image", categories.subList(0, 1)),
+                new Book(UUID.randomUUID(), "A Feast for Crows", author, 10F, 0, "Leya", 2005, 784, "description", "image", categories.subList(0, 1))
+        );
+
+        when(categoryRepository.findBySlug(category.getSlug())).thenReturn(Optional.of(category));
+        when(bookRepository.findAllByCategories(Optional.of(category))).thenReturn(allBooks);
+
+        List<Book> result = shopService.getBooksByCategory(category.getSlug(), null);
+
+        assertThat(result, hasSize(4));
+        assertThat(result, contains(allBooks.toArray()));
+        verify(categoryRepository, times(1)).findBySlug(category.getSlug());
+        verify(bookRepository, times(1)).findAllByCategories(Optional.of(category));
+    }
 
 }
