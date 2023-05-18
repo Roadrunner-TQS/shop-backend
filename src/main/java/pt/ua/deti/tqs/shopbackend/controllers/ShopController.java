@@ -29,7 +29,15 @@ public class ShopController {
 
     @GetMapping("/categories")
     public ResponseEntity<Object> getCategories(@RequestParam(value = "limit", required = false) Integer limit){
-        return null;
+        List<Category> categories = shopService.getCategories(limit);
+        if (categories.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(APPLICATION_JSON)
+                    .body(new ErrorDTO("No categories found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(APPLICATION_JSON)
+                .body(categories);
     }
 
     @GetMapping("/books")
@@ -37,18 +45,42 @@ public class ShopController {
                                            @RequestParam(value = "page", required = false) Integer page,
                                            @RequestParam(value = "sort", required = false) String sort,
                                            @RequestParam(value = "q", required = false) String q) {
-        return null;
+        List<Book> books = shopService.getBooks(sort,q, limit,page);
+        if (books.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(APPLICATION_JSON)
+                    .body(new ErrorDTO("No books found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(APPLICATION_JSON)
+                .body(books);
     }
 
     @GetMapping("/book/{id}")
     public ResponseEntity<Object> getBookById(@PathVariable UUID id) {
-        return null;
+        Book book = shopService.getBookById(id);
+        if (book == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(APPLICATION_JSON)
+                    .body(new ErrorDTO("Book not found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(APPLICATION_JSON)
+                .body(book);
     }
 
     @GetMapping("/book/category/{categorySlug}")
     public ResponseEntity<Object> getBooksByCategory(@RequestParam(value = "limit", required = false) Integer limit,
                                                      @PathVariable String categorySlug) {
-        return null;
+        List<Book> books = shopService.getBooksByCategory(categorySlug, limit);
+        if (books.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(APPLICATION_JSON)
+                    .body(new ErrorDTO("No books found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(APPLICATION_JSON)
+                .body(books);
     }
 
 }
