@@ -124,6 +124,68 @@ public class ShopService {
     }
 
     public boolean newOrder(Order orderRequest, String token) {
-       return false;
+        orderRequest.setDate(System.currentTimeMillis());
+        String email = jwtTokenService.getEmailFromToken(token);
+        if (email == null) {
+            log.error("User not found");
+            return false;
+        }
+        Client client = clientRepository.findByEmail(email).orElse(null);
+        if (client == null) {
+            log.error("Client not found");
+            return false;
+        }
+        orderRequest.setClient(client);
+
+        List<OrderItem> items = orderRequest.getItems();
+        for (OrderItem item : items) {
+            UUID bookId = item.getBook().getId();
+            if (bookId != null) {
+                Optional<Book> optionalBook = bookRepository.findById(bookId);
+                if (optionalBook.isPresent()) {
+                    item.setBook(optionalBook.get());
+                } else {
+                    log.error("Book not found");
+                    return false;
+                }
+            }
+        }
+
+        List<OrderStatus> orderStatuses = new ArrayList<>();
+        OrderStatus orderR = new OrderStatus();
+        orderR.setStatus(Status.SHIPPING);
+        orderR.setTimestamp(System.currentTimeMillis());
+        orderStatuses.add(orderR);
+        orderStatusRepository.saveAll(orderStatuses);
+        log.info("Order status saved");
+
+        paymentRepository.save(orderRequest.getPayment());
+        log.info("Payment saved");
+        orderRequest.setPayment(orderRequest.getPayment());
+
+        if (pickUpLocationRepository.findBySlug(orderRequest.getPickUpLocation().getSlug()).orElse(null) != null) {
+            log.info("PickUpLocation saved");
+            orderRequest.setPickUpLocation(pickUpLocationRepository.findBySlug(orderRequest.getPickUpLocation().getSlug()).get());
+        }
+        else{
+            pickUpLocationRepository.save(orderRequest.getPickUpLocation());
+            log.info("PickUpLocation saved");
+            orderRequest.setPickUpLocation(orderRequest.getPickUpLocation());
+        }
+
+        if (pickUpServiceRepository.findById(orderRequest.getPickUpLocation().getPickUpService().getId()).orElse(null) != null) {
+            log.info("PickUpService saved");
+            orderRequest.setPickUpService(pickUpServiceRepository.findById(orderRequest.getPickUpLocation().getPickUpService().getId()).get());
+        }
+        else{
+            pickUpServiceRepository.save(orderRequest.getPickUpService());
+            log.info("PickUpService saved");
+            orderRequest.setPickUpService(orderRequest.getPickUpService());
+        }
+        orderRepository.save(orderRequest);
+        orderRequest.setOrderStatuses(orderStatuses);
+        orderRepository.save(orderRequest);
+        log.info("Order saved");
+        return true;
     }
 }
