@@ -3,8 +3,10 @@ package pt.ua.deti.tqs.shopbackend.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pt.ua.deti.tqs.shopbackend.data.*;
+import pt.ua.deti.tqs.shopbackend.model.Book;
 import pt.ua.deti.tqs.shopbackend.model.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -41,5 +43,9 @@ public class ShopService {
             return categoryRepository.findAll().subList(0, limit);
         }
         return categoryRepository.findAll();
+    }
+
+    public List<Book> getBooks(String sort, String q, Integer limit, Integer page) {
+        return null;
     }
 }
