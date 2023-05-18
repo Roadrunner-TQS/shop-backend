@@ -37,6 +37,9 @@ public class ShopService {
     }
 
     public List<Category> getCategories(Integer limit) {
-        return null;
+        if (limit != null) {
+            return categoryRepository.findAll().subList(0, limit);
+        }
+        return categoryRepository.findAll();
     }
 }
