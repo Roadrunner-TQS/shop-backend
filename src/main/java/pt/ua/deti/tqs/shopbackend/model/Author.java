@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "authors")
 public class Author {
 

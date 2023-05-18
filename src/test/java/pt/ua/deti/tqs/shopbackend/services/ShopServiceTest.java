@@ -15,8 +15,8 @@ import java.util.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -395,6 +395,53 @@ class ShopServiceTest {
         verify(jwtTokenService, times(1)).getEmailFromToken(token);
         verify(clientRepository, times(1)).findByEmail(email);
         verify(orderRepository, never()).findAllByClient(any());
+    }
+
+    @Test
+    public void testNewOrder_ValidOrder_SuccessfullySaved() {
+        String token = "valid_token";
+        String email = "test@example.com";
+        UUID bookId = UUID.randomUUID();
+        Order orderRequest = new Order();
+        orderRequest.setPayment(new Payment());
+        orderRequest.setPickUpLocation(new PickUpLocation());
+        orderRequest.getPickUpLocation().setPickUpService(new PickUpService());
+        OrderItem orderItem = new OrderItem();
+        Book book = new Book();
+        book.setId(bookId);
+        orderItem.setBook(book);
+        orderRequest.setItems(Collections.singletonList(orderItem));
+
+        when(jwtTokenService.getEmailFromToken(token)).thenReturn(email);
+        when(clientRepository.findByEmail(email)).thenReturn(Optional.of(new Client()));
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(new Book()));
+        when(pickUpLocationRepository.findBySlug(orderRequest.getPickUpLocation().getSlug())).thenReturn(Optional.empty());
+        when(pickUpServiceRepository.findById(orderRequest.getPickUpLocation().getPickUpService().getId())).thenReturn(Optional.empty());
+        when(orderRepository.save(orderRequest)).thenReturn(orderRequest);
+
+        boolean result = shopService.newOrder(orderRequest, token);
+
+        assertTrue(result);
+        verify(jwtTokenService, times(1)).getEmailFromToken(token);
+        verify(clientRepository, times(1)).findByEmail(email);
+        verify(bookRepository, times(1)).findById(bookId);
+        verify(orderRepository, times(2)).save(orderRequest);
+    }
+
+    @Test
+    public void testNewOrder_InvalidToken_ReturnsFalse() {
+        String token = "invalid_token";
+        Order orderRequest = new Order();
+
+        when(jwtTokenService.getEmailFromToken(token)).thenReturn(null);
+
+        boolean result = shopService.newOrder(orderRequest, token);
+
+        assertFalse(result);
+        verify(jwtTokenService, times(1)).getEmailFromToken(token);
+        verify(clientRepository, never()).findByEmail(anyString());
+        verify(bookRepository, never()).findById(any());
+        verify(orderRepository, never()).save(any());
     }
 
 

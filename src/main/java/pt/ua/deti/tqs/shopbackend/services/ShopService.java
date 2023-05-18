@@ -4,11 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import pt.ua.deti.tqs.shopbackend.data.*;
-import pt.ua.deti.tqs.shopbackend.model.Book;
-import pt.ua.deti.tqs.shopbackend.model.Category;
-import pt.ua.deti.tqs.shopbackend.model.Client;
-import pt.ua.deti.tqs.shopbackend.model.Order;
+import pt.ua.deti.tqs.shopbackend.model.*;
 import pt.ua.deti.tqs.shopbackend.model.dto.OrderDTO;
+import pt.ua.deti.tqs.shopbackend.model.enums.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,5 +121,9 @@ public class ShopService {
             orderDTOS.add(orderDTO);
         }
         return orderDTOS;
+    }
+
+    public boolean newOrder(Order orderRequest, String token) {
+       return false;
     }
 }
