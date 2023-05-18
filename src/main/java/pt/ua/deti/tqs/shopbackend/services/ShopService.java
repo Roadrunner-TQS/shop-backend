@@ -105,6 +105,23 @@ public class ShopService {
     }
 
     public List<OrderDTO> getOrdersByClient(String token) {
-        return null;
+        String email = jwtTokenService.getEmailFromToken(token);
+        if (email == null) {
+            log.info("User not found");
+            return null;
+        }
+        Client client = clientRepository.findByEmail(email).orElse(null);
+        if (client == null) {
+            log.info("Client not found");
+            return null;
+        }
+        List<Order> orders = orderRepository.findAllByClient(client);
+        List<OrderDTO> orderDTOS = new ArrayList<>();
+        for(Order order : orders) {
+            ModelMapper modelMapper = new ModelMapper();
+            OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+            orderDTOS.add(orderDTO);
+        }
+        return orderDTOS;
     }
 }
