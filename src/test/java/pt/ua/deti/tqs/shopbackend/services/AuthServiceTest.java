@@ -1,21 +1,26 @@
 package pt.ua.deti.tqs.shopbackend.services;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.Mockito.*;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import pt.ua.deti.tqs.shopbackend.data.ClientRepository;
 import pt.ua.deti.tqs.shopbackend.model.Client;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginRequest;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginResponse;
 import pt.ua.deti.tqs.shopbackend.model.auth.RegisterRequest;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import pt.ua.deti.tqs.shopbackend.model.dto.ClientDTO;
+import pt.ua.deti.tqs.shopbackend.services.AuthService;
+import pt.ua.deti.tqs.shopbackend.services.JwtTokenService;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceTest {
@@ -64,7 +69,7 @@ public class AuthServiceTest {
 		assertNull(loginResponse);
 		assertFalse(authService.isAuthenticated("token"));
 	}
-	
+
 	@Test
 	void signup_WithNewUser_ShouldCreateUserAndReturnSuccessMessage() {
 		RegisterRequest registerRequest = new RegisterRequest("test@mail.com", "password", "firstName", "lastName",
@@ -76,7 +81,7 @@ public class AuthServiceTest {
 		assertEquals("User Created", response);
 		verify(clientRepository, times(1)).save(any(Client.class));
 	}
-	
+
 	@Test
 	void signup_WithExistingUser_ShouldReturnErrorMessage() {
 		RegisterRequest registerRequest = new RegisterRequest("test@mail.com", "password", "firstName", "lastName",
@@ -176,5 +181,32 @@ public class AuthServiceTest {
 
 		assertFalse(authService.logout(invalid_token));
 		verify(clientRepository, times(1)).save(any(Client.class));
+	}
+
+	@Test
+	void getCurrentUser_WithValidToken_ShouldReturnCurrentUser() {
+		String token = "valid_token";
+		String email = "test@example.com";
+		Client client = new Client();
+		client.setEmail(email);
+		ClientDTO expectedClientDTO = new ClientDTO();
+		expectedClientDTO.setEmail(email);
+		when(jwtTokenService.getEmailFromToken(token)).thenReturn(email);
+		when(clientRepository.findByEmail(email)).thenReturn(Optional.of(client));
+		ClientDTO result = authService.currentUser(token);
+		assertNotNull(result);
+		assertEquals(expectedClientDTO, result);
+		verify(jwtTokenService, times(1)).getEmailFromToken(token);
+		verify(clientRepository, times(1)).findByEmail(email);
+	}
+
+	@Test
+	void testCurrentUser_InvalidToken_ReturnsNull() {
+		String token = "invalid_token";
+		when(jwtTokenService.getEmailFromToken(token)).thenReturn(null);
+		ClientDTO result = authService.currentUser(token);
+		assertNull(result);
+		verify(jwtTokenService, times(1)).getEmailFromToken(token);
+		verify(clientRepository, never()).findByEmail(anyString());
 	}
 }

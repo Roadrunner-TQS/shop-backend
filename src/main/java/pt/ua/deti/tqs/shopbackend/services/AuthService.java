@@ -8,6 +8,7 @@ import pt.ua.deti.tqs.shopbackend.model.Client;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginRequest;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginResponse;
 import pt.ua.deti.tqs.shopbackend.model.auth.RegisterRequest;
+import pt.ua.deti.tqs.shopbackend.model.dto.ClientDTO;
 import pt.ua.deti.tqs.shopbackend.model.enums.Roles;
 
 import java.util.HashMap;
@@ -83,5 +84,9 @@ public class AuthService {
             log.info("Invalid token");
             return false;
         }
+    }
+
+    public ClientDTO currentUser(String token) {
+        return null;
     }
 }
