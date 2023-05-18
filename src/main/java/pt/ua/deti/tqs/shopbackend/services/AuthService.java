@@ -87,6 +87,13 @@ public class AuthService {
     }
 
     public ClientDTO currentUser(String token) {
+        token = token.replace("Bearer ", "");
+        String email = jwtTokenService.getEmailFromToken(token);
+        Client client = clientRepository.findByEmail(email).orElse(null);
+        if (client != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            return modelMapper.map(client, ClientDTO.class);
+        }
         return null;
     }
 }
