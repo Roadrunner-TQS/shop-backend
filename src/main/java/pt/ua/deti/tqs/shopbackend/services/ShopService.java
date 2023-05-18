@@ -85,6 +85,6 @@ public class ShopService {
     }
 
     public Book getBookById(UUID id) {
-        return null;
+        return bookRepository.findById(id).orElse(null);
     }
 }
