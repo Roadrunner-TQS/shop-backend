@@ -90,6 +90,13 @@ public class ShopService {
     }
 
     public List<Book> getBooksByCategory(String categorySlug, Integer limit) {
-        return null;
+        Category category= categoryRepository.findBySlug(categorySlug).orElse(null);
+        if (category == null) {
+            return null;
+        }
+        if (limit != null) {
+            return bookRepository.findAllByCategories(Optional.of(category)).subList(0, limit);
+        }
+        return bookRepository.findAllByCategories(Optional.of(category));
     }
 }
