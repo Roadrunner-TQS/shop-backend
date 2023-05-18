@@ -1,0 +1,26 @@
+[
+  {
+    "email": "client@gmail.com",
+    "password":"client",
+    "firstName": "client",
+    "lastName": "teste",
+    "phone": 967892345,
+    "role": "ROLE_USER"
+  },
+  {
+    "email": "joseandrade@gamil.com",
+    "password":"jose",
+    "firstName": "jose",
+    "lastName": "andrade",
+    "phone": 967892345,
+    "role": "ROLE_USER"
+    },
+    {
+    "email": "mariamartins@gmail.com",
+    "password":"maria",
+    "firstName": "maria",
+    "lastName": "martins",
+    "phone": 967892345,
+    "role": "ROLE_USER"
+    }
+]

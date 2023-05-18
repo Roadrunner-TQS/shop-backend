@@ -1,0 +1,69 @@
+[
+  {
+    "id": "cf09c5c3-6c3c-4e13-a16e-067cc7b1d810",
+    "firstName": "George R. R.",
+    "lastName": "Martin",
+    "bio": "George R. R. Martin is a bestselling author best known for his epic fantasy series A Song of Ice and Fire, which was adapted into the hit television series Game of Thrones. He has won multiple awards for his work, including Hugo and Nebula Awards."
+  },
+  {
+    "id": "85e23e6a-ba88-5af8-a338-0685f21e1d58",
+    "firstName": "J.R.R.",
+    "lastName": "Tolkien",
+    "bio": "J.R.R. Tolkien was a renowned author and academic best known for his epic high fantasy novels The Hobbit and The Lord of the Rings. He is widely considered one of the most influential writers of the 20th century."
+  },
+  {
+    "id": "dd7f072c-8d0c-3e87-aedf-98c12a6c6e6b",
+    "firstName": "Harper",
+    "lastName": "Lee",
+    "bio": "Harper Lee was an American novelist best known for her Pulitzer Prize-winning novel To Kill a Mockingbird. She was also awarded the Presidential Medal of Freedom for her contributions to literature."
+  },
+  {
+    "id": "0c7b7a4c-7a16-4f19-84ea-d3c031ddc5bf",
+    "firstName": "George",
+    "lastName": "Orwell",
+    "bio": "George Orwell was a British author and journalist best known for his dystopian novel 1984 and the allegorical novella Animal Farm. He is considered one of the most important writers of the 20th century."
+  },
+  {
+    "id": "fb1fc7b4-0fa3-4dd5-8a34-9c547a7aeb3f",
+    "firstName": "F. Scott",
+    "lastName": "Fitzgerald",
+    "bio": "F. Scott Fitzgerald was an American novelist and short story writer best known for his novel The Great Gatsby. He is considered one of the greatest American writers of the 20th century."
+  },
+  {
+    "id": "d454a4e4-4f4e-45c9-bf4c-4249b1ce30a5",
+    "firstName": "Patrick",
+    "lastName": "Rothfuss",
+    "bio": "Patrick Rothfuss is an American fantasy author best known for his Kingkiller Chronicle trilogy, which includes The Name of the Wind and The Wise Man's Fear. He has won multiple awards for his work, including the Quill Award and the Alex Award."
+  },
+  {
+    "id": "7d6480ed-4a48-4df3-bf23-3e66bbad7655",
+    "firstName": "J. D.",
+    "lastName": "Salinger",
+    "bio": "J. D. Salinger was an American author best known for his novel The Catcher in the Rye. He was known for his reclusive lifestyle and reluctance to engage with the media or public. His work has been highly influential in the literary world and has been the subject of numerous adaptations and references in popular culture."
+  },
+  {
+    "id": "f97aa4c3-2f67-417d-80e4-405dd51dcb2d",
+    "firstName": "C. S.",
+    "lastName": "Lewis",
+    "bio": "C. S. Lewis was a British writer and theologian best known for his series of children's books The Chronicles of Narnia. He was also a respected scholar and a close friend of fellow writer J.R.R. Tolkien."
+  },
+  {
+    "id": "3e89ab55-4a62-43ee-aa18-97cc5a62a5fa",
+    "firstName": "Jane",
+    "lastName": "Austen",
+    "bio": "Jane Austen was an English novelist best known for her works of romantic fiction, including Pride and Prejudice and Sense and Sensibility. Her novels have become beloved classics and have been adapted for film, television, and stage numerous times."
+  },
+  {
+    "id": "4db55f15-5d61-441c-8d2b-7253b5c96e35",
+    "firstName": "Douglas",
+    "lastName": "Adams",
+    "bio": "Douglas Adams was a British author and humorist best known for his science fiction series The Hitchhiker's Guide to the Galaxy. He was also a noted scriptwriter, environmental activist, and technology enthusiast."
+  },
+  {
+    "id": "bc16fa47-c0a1-4176-87ed-6d78a23a0e84",
+    "firstName": "Oscar",
+    "lastName": "Wilde",
+    "bio": "Oscar Wilde was an Irish playwright, novelist, and poet best known for his wit, flamboyant style, and social commentary. His works include The Importance of Being Earnest, The Picture of Dorian Gray, and numerous plays, essays, and poems."
+  }
+]
+
