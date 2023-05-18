@@ -46,6 +46,40 @@ public class ShopService {
     }
 
     public List<Book> getBooks(String sort, String q, Integer limit, Integer page) {
-        return null;
+        List<Book> result = new ArrayList<>();
+        List<Book> books = bookRepository.findAll();
+        if (q != null && !q.equals("")) {
+            for (Book book : books) {
+                if (book.getTitle().toLowerCase().contains(q.toLowerCase())) {
+                    result.add(book);
+                }
+            }
+        } else {
+            result.addAll(books);
+        }
+
+        if (sort != null && sort.equals("newest")) {
+            result.sort((Book b1, Book b2) -> b2.getYear().compareTo(b1.getYear()));
+        } else if (sort != null && sort.equals("oldest")) {
+            result.sort((Book b1, Book b2) -> b1.getYear().compareTo(b2.getYear()));
+        }
+
+        if (page != null && limit == null) {
+            return null;
+        }
+
+        if (page != null && limit != null) {
+            int start = (page-1) * limit;
+            int end = start + limit;
+            if (end > result.size()) {
+                end = result.size();
+            }
+            return result.subList(start, end);
+        }
+
+        if (limit != null) {
+            return result.subList(0, limit);
+        }
+        return result;
     }
 }
