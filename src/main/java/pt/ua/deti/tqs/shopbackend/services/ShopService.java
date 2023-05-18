@@ -8,6 +8,7 @@ import pt.ua.deti.tqs.shopbackend.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -81,5 +82,9 @@ public class ShopService {
             return result.subList(0, limit);
         }
         return result;
+    }
+
+    public Book getBookById(UUID id) {
+        return null;
     }
 }

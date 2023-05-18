@@ -251,4 +251,27 @@ class ShopServiceTest {
         verify(bookRepository, times(1)).findAll();
     }
 
+    @Test
+    public void testGetBookById_ExistingId_ReturnsBook() {
+        UUID bookId = UUID.randomUUID();
+        Book expectedBook = new Book(bookId, "A Game of Thrones", null, 10F, 0, "Leya", 1996, 694, "description", "image", null);
+
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(expectedBook));
+
+        Book result = shopService.getBookById(bookId);
+
+        assertEquals(expectedBook, result);
+        verify(bookRepository, times(1)).findById(bookId);
+    }
+
+    @Test
+    public void testGetBookById_NonExistingId_ReturnsNull() {
+        UUID bookId = UUID.randomUUID();
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+        Book result = shopService.getBookById(bookId);
+        assertEquals(null, result);
+        verify(bookRepository, times(1)).findById(bookId);
+    }
+
+
 }
