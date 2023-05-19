@@ -29,17 +29,17 @@ public class AuthControllers {
 
 	@PostMapping("/signup")
 	public ResponseEntity<Object> signup(@RequestBody RegisterRequest registerRequest) {
-		log.info("Signup request");
+		log.info("AuthControllers -- signup Request");
 		String response = authService.signup(registerRequest);
 		if (response == null) {
-			log.error("User already exists");
+			log.error("AuthControllers -- signup Request -- User already exists");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.contentType(APPLICATION_JSON)
 					.body(USER_ALREADY_EXISTS);
 		}
-		log.info("User created");
+		log.info("AuthControllers -- signup Request -- User created");
 		String token = authService.login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword())).getToken();
-		log.info("Token generated");
+		log.info("AuthControllers -- signup Request -- Login successful");
 		return ResponseEntity.status(HttpStatus.CREATED)
 					.contentType(APPLICATION_JSON)
 					.body(new LoginResponse(token));
@@ -47,15 +47,15 @@ public class AuthControllers {
 
 	@PostMapping("/login")
 	public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
-		log.info("Login request");
+		log.info("AuthControllers -- login Request");
 		LoginResponse response = authService.login(loginRequest);
 		if (response == null) {
-			log.error("Invalid credentials");
+			log.error("AuthControllers -- login Request -- Invalid credentials");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.contentType(APPLICATION_JSON)
 					.body(INVALID_CREDENTIAlS);
 		}
-		log.info("Login successful");
+		log.info("AuthControllers -- login Request -- Login successful");
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(APPLICATION_JSON)
 				.body(response);
@@ -64,14 +64,14 @@ public class AuthControllers {
 	@PutMapping("/logout")
 	@PreAuthorize("@authService.isAuthenticated(#token)")
 	public ResponseEntity<Object> logout(@RequestHeader("Authorization") String token){
-		log.info("Logout request");
+		log.info("AuthControllers -- logout Request");
 		if (authService.logout(token)){
-			log.info("Logout successful");
+			log.info("AuthControllers -- logout Request -- Logout successful");
 			return ResponseEntity.status(HttpStatus.OK)
 					.contentType(APPLICATION_JSON)
 					.body(new SuccessDTO("Logout successful"));
 		}
-		log.error("Invalid credentials");
+		log.error("AuthControllers -- logout Request -- Invalid credentials");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 				.contentType(APPLICATION_JSON)
 				.body(INVALID_CREDENTIAlS);
@@ -80,15 +80,15 @@ public class AuthControllers {
 	@GetMapping("/me")
 	@PreAuthorize("@authService.isAuthenticated(#token)")
 	public ResponseEntity<Object> me(@RequestHeader("Authorization") String token){
-		log.info("Me request");
+		log.info("AuthControllers -- me Request");
 		ClientDTO client = authService.currentUser(token);
 		if (client == null) {
-			log.error("Client not found");
+			log.error("AuthControllers -- me Request -- Client not found");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.contentType(APPLICATION_JSON)
 					.body(new ErrorDTO("Client not found"));
 		}
-		log.info("Me successful");
+		log.info("AuthControllers -- me Request -- Client found");
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(APPLICATION_JSON)
 				.body(client);
