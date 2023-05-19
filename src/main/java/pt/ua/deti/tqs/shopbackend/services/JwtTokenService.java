@@ -26,6 +26,7 @@ public class JwtTokenService {
     }
 
     public String generateToken(String username) {
+        log.info("JwtTokenService -- generateToken Request");
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtConfig.getExpiration() * 1000L);
 
@@ -37,24 +38,29 @@ public class JwtTokenService {
                 .compact();
     }
 
-    public boolean validateToken(String token) {
-        token = token.replace("Bearer ", "");
-    
+    public boolean validateToken(String tokenRequest) {
+        log.info("JwtTokenService -- validateToken Request");
+        String token = tokenRequest.replace("Bearer ", "");
         try {
+            log.info("JwtTokenService -- validateToken Request Success");
             Date expiration = Jwts.parserBuilder().setSigningKey(jwtKey).build().parseClaimsJws(token).getBody().getExpiration();
             return !expiration.before(new Date());
         } catch (Exception e) {
+            log.info("JwtTokenService -- validateToken Request Failed");
             return false;
         }
     }
     
 
     public String getEmailFromToken(String token) {
+        log.info("JwtTokenService -- getEmailFromToken Request");
         token = token.replace("Bearer ", "");
         try {
+            log.info("JwtTokenService -- getEmailFromToken Request Success");
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(jwtKey).build().parseClaimsJws(token);
             return claims.getBody().getSubject();
         } catch (Exception e) {
+            log.info("JwtTokenService -- getEmailFromToken Request Failed");
             return null;
         }
     }
