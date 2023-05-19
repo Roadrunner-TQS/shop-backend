@@ -142,19 +142,20 @@ public class ShopService {
         log.info("Payment saved");
         orderRequest.setPayment(orderRequest.getPayment());
 
-        if (pickUpLocationRepository.findBySlug(orderRequest.getPickUpLocation().getSlug()).orElse(null) != null) {
+        PickUpLocation pickUpLocation =pickUpLocationRepository.findBySlug(orderRequest.getPickUpLocation().getSlug()).orElse(null);
+        if (pickUpLocation != null) {
             log.info("PickUpLocation saved");
-            orderRequest.setPickUpLocation(pickUpLocationRepository.findBySlug(orderRequest.getPickUpLocation().getSlug()).get());
+            orderRequest.setPickUpLocation(pickUpLocation);
         }
         else{
             pickUpLocationRepository.save(orderRequest.getPickUpLocation());
             log.info("PickUpLocation saved");
             orderRequest.setPickUpLocation(orderRequest.getPickUpLocation());
         }
-
-        if (pickUpServiceRepository.findById(orderRequest.getPickUpLocation().getPickUpService().getId()).orElse(null) != null) {
+        PickUpService pickUpService = pickUpServiceRepository.findById(orderRequest.getPickUpLocation().getPickUpService().getId()).orElse(null);
+        if (pickUpService != null) {
             log.info("PickUpService saved");
-            orderRequest.setPickUpService(pickUpServiceRepository.findById(orderRequest.getPickUpLocation().getPickUpService().getId()).get());
+            orderRequest.setPickUpService(pickUpService);
         }
         else{
             pickUpServiceRepository.save(orderRequest.getPickUpService());

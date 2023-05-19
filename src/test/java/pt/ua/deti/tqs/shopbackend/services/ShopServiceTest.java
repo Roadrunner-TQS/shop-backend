@@ -14,11 +14,9 @@ import pt.ua.deti.tqs.shopbackend.model.dto.OrderDTO;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.*;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -77,7 +75,7 @@ class ShopServiceTest {
         verify(categoryRepository, times(1)).findAll();
     }
     @Test
-    public void testGetCategories_WithoutLimit_ReturnsAllCategories() {
+    void testGetCategories_WithoutLimit_ReturnsAllCategories() {
         List<Category> categories = Arrays.asList(
                 new Category(UUID.randomUUID(), "name1", "slug1"),
                 new Category(UUID.randomUUID(), "name2", "slug2"),
@@ -93,7 +91,7 @@ class ShopServiceTest {
         verify(categoryRepository, times(1)).findAll();
     }
     @Test
-    public void testGetBooks_WithSortNewestAndQuery_ReturnsFilteredAndSortedBooks() {
+    void testGetBooks_WithSortNewestAndQuery_ReturnsFilteredAndSortedBooks() {
         String sort = "newest";
         String q = "A Game of Thrones";
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
@@ -120,7 +118,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBooks_WithSortOldest_ReturnsFilteredAndSortedBooks() {
+    void testGetBooks_WithSortOldest_ReturnsFilteredAndSortedBooks() {
         String sort = "oldest";
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
         List<Category> categories = Arrays.asList(
@@ -147,7 +145,7 @@ class ShopServiceTest {
     }
 
     @Test
-    public void testGetBooks_WithPageAndLimit_ReturnsPagedBooks() {
+    void testGetBooks_WithPageAndLimit_ReturnsPagedBooks() {
         Integer page = 2;
         Integer limit = 3;
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
@@ -184,7 +182,7 @@ class ShopServiceTest {
 
         Book result = shopService.getBookById(bookId);
 
-        assertEquals(expectedBook, result);
+        Assertions.assertEquals(expectedBook, result);
         verify(bookRepository, times(1)).findById(bookId);
     }
 
@@ -193,7 +191,7 @@ class ShopServiceTest {
         UUID bookId = UUID.randomUUID();
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
         Book result = shopService.getBookById(bookId);
-        assertEquals(null, result);
+        Assertions.assertNull(result);
         verify(bookRepository, times(1)).findById(bookId);
     }
 
@@ -249,7 +247,7 @@ class ShopServiceTest {
     }
 
     @Test
-     void testGetBooks_ReturnsAllBooks() {
+    void testGetBooks_ReturnsAllBooks() {
         Author author = new Author(UUID.randomUUID(),"George R. R.", "Martin", "George R. R. Martin is an American novelist and short story writer in the fantasy, horror, and science fiction genres, screenwriter, and television producer. He is best known for his series of epic fantasy novels, A Song of Ice and Fire, which was later adapted into the HBO series Game of Thrones.");
         List<Category> categories = Arrays.asList(
                 new Category(UUID.randomUUID(), "name1", "slug1"),
@@ -296,7 +294,7 @@ class ShopServiceTest {
     }
 
     @Test
-     void testGetOrdersByClient_InvalidToken_ReturnsNull() {
+    void testGetOrdersByClient_InvalidToken_ReturnsNull() {
         String token = "invalid_token";
 
         when(jwtTokenService.getEmailFromToken(token)).thenReturn(null);

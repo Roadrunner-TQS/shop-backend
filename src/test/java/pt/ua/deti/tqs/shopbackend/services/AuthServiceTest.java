@@ -1,10 +1,17 @@
 package pt.ua.deti.tqs.shopbackend.services;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import pt.ua.deti.tqs.shopbackend.data.ClientRepository;
 import pt.ua.deti.tqs.shopbackend.model.Client;
 import pt.ua.deti.tqs.shopbackend.model.auth.LoginRequest;
@@ -12,14 +19,8 @@ import pt.ua.deti.tqs.shopbackend.model.auth.LoginResponse;
 import pt.ua.deti.tqs.shopbackend.model.auth.RegisterRequest;
 import pt.ua.deti.tqs.shopbackend.model.dto.ClientDTO;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
-public class AuthServiceTest {
+class AuthServiceTest {
 
 	@Mock(lenient = true)
 	private ClientRepository clientRepository;
@@ -69,7 +70,7 @@ public class AuthServiceTest {
 	@Test
 	void signup_WithNewUser_ShouldCreateUserAndReturnSuccessMessage() {
 		RegisterRequest registerRequest = new RegisterRequest("test@mail.com", "password", "firstName", "lastName",
-				"phone", "ROLE_USER");
+				"phone", null);
 		when(clientRepository.findByEmail(registerRequest.getEmail())).thenReturn(Optional.empty());
 
 		String response = authService.signup(registerRequest);

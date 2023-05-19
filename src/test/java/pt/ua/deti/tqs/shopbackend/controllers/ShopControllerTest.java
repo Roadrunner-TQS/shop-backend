@@ -8,9 +8,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 import pt.ua.deti.tqs.shopbackend.model.Author;
 import pt.ua.deti.tqs.shopbackend.model.Book;
 import pt.ua.deti.tqs.shopbackend.model.Category;
+import pt.ua.deti.tqs.shopbackend.model.Order;
+import pt.ua.deti.tqs.shopbackend.model.dto.OrderDTO;
 import pt.ua.deti.tqs.shopbackend.services.ShopService;
 
 import java.util.ArrayList;
@@ -245,5 +248,68 @@ class ShopControllerTest {
                 .body("message", equalTo("No books found"));
 
         verify(shopService, times(1)).getBooksByCategory(any(), any());
+    }
+
+    @Test
+    @WithMockUser
+    void whenCreateOrder_thenReturnsCreated() {
+        when(shopService.newOrder(any(), any())).thenReturn(true);
+
+        RestAssuredMockMvc.given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer token")
+                .body(new Order())
+                .when()
+                .post("/api/order/neworder")
+                .then()
+                .statusCode(201);
+    }
+
+    @Test
+    @WithMockUser
+    void whenCreateOrder_thenReturnsBadRequest() {
+        when(shopService.newOrder(any(), any())).thenReturn(false);
+
+        RestAssuredMockMvc.given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer token")
+                .body(new Order())
+                .when()
+                .post("/api/order/neworder")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
+    @WithMockUser
+    void whenListOrder_thenReturnsOK() {
+        OrderDTO order = new OrderDTO();
+        ArrayList<OrderDTO> list = new ArrayList<>();
+        list.add(order);
+        when(shopService.getOrdersByClient(any())).thenReturn(list);
+
+        RestAssuredMockMvc.given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer token")
+                .when()
+                .get("/api/order")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @WithMockUser
+    void whenListOrder_thenReturnsNotFound() {
+        ArrayList<OrderDTO> list = new ArrayList<>();
+
+        when(shopService.getOrdersByClient(any())).thenReturn(list);
+
+        RestAssuredMockMvc.given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer token")
+                .when()
+                .get("/api/order")
+                .then()
+                .statusCode(404);
     }
 }
