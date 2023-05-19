@@ -17,10 +17,11 @@ import java.util.Map;
 @Slf4j
 @Service
 public class AuthService {
+    private static final String BEARER = "Bearer ";
     private final ClientRepository clientRepository;
     private final JwtTokenService jwtTokenService;
 
-    private static Map<String, String> whiteList = new HashMap<>();
+    private static final Map<String, String> whiteList = new HashMap<>();
 
     public AuthService(ClientRepository clientRepository, JwtTokenService jwtTokenService) {
         this.clientRepository = clientRepository;
@@ -28,14 +29,15 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
+        log.info("AuthService -- Login request");
         Client cliente = clientRepository.findByEmail(loginRequest.getEmail()).orElse(null);
         if (cliente != null && cliente.checkPassword(loginRequest.getPassword())) {
             String token = jwtTokenService.generateToken(loginRequest.getEmail());
             whiteList.put(cliente.getEmail(), token);
-            log.info("Login successful");
+            log.info("AuthService -- Login successful");
             return new LoginResponse(token);
         }
-        log.error("Invalid credentials");
+        log.error("AuthService -- Invalid credentials");
         return null;
     }
 
@@ -55,45 +57,45 @@ public class AuthService {
         return null;
     }
 
-    public Boolean logout(String token) {
+    public Boolean logout(String tokenRequest) {
         log.info("AuthService -- Logout request");
-        token = token.replace("Bearer ", "");
+        String token = tokenRequest.replace(BEARER, "");
         String email = jwtTokenService.getEmailFromToken(token);
         if (email != null && whiteList.get(email).equals(token)) {
+            log.info("AuthService -- Logout successful");
             whiteList.remove(email);
             return true;
         }
+        log.error("AuthService -- Logout failed");
         return false;
     }
 
     public Boolean isAuthenticated(String token) {
-        token = token.replace("Bearer ", "");
+        token = token.replace(BEARER, "");
         if (whiteList.isEmpty()) {
-            log.info("No users logged in");
+            log.info("AuthService -- No tokens in whitelist");
             return false;
         }
-        try {
-            String email = jwtTokenService.getEmailFromToken(token);
-            if (!jwtTokenService.validateToken(token) || !whiteList.containsKey(email)) {
-                log.info("Invalid token");
-                return false;
-            }
-            return whiteList.get(email).equals(token);
-
-        } catch (Exception e) {
-            log.info("Invalid token");
+        String email = jwtTokenService.getEmailFromToken(token);
+        if (!jwtTokenService.validateToken(token) || !whiteList.containsKey(email)) {
+            log.info("AuthService -- Invalid token");
             return false;
         }
+        log.info("AuthService -- Token is valid");
+        return whiteList.get(email).equals(token);
     }
 
-    public ClientDTO currentUser(String token) {
-        token = token.replace("Bearer ", "");
+    public ClientDTO currentUser(String tokenRequest) {
+        log.info("AuthService -- Get current client request");
+        String token = tokenRequest.replace(BEARER, "");
         String email = jwtTokenService.getEmailFromToken(token);
         Client client = clientRepository.findByEmail(email).orElse(null);
         if (client != null) {
+            log.info("AuthService -- Get current client successful");
             ModelMapper modelMapper = new ModelMapper();
             return modelMapper.map(client, ClientDTO.class);
         }
+        log.error("AuthService -- Get current client failed");
         return null;
     }
 }
