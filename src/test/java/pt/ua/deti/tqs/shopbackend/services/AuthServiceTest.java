@@ -1,5 +1,6 @@
 package pt.ua.deti.tqs.shopbackend.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +29,11 @@ class AuthServiceTest {
 
 	@InjectMocks
 	private AuthService authService;
+
+	@BeforeEach
+	void setUp() {
+		authService.clearWhiteList();
+	}
 
 	@Test
 	void login_WithValidCredentials_ShouldReturnLoginResponse() {
@@ -114,6 +120,15 @@ class AuthServiceTest {
 
 	@Test
 	void isAuthenticated_WithInvalidToken_ShouldReturnFalse() {
+		String email = "test@mail.com";
+		String password = "password";
+		Client client = new Client();
+		client.setEmail(email);
+		client.setPassword(password);
+		when(clientRepository.findByEmail(email)).thenReturn(Optional.of(client));
+		when(jwtTokenService.generateToken(email)).thenReturn("token");
+
+		String token = authService.login(new LoginRequest(email, password)).getToken();
 
 		String invalid_token = "invalid";
 		when(jwtTokenService.getEmailFromToken(invalid_token)).thenReturn(null);
@@ -188,5 +203,12 @@ class AuthServiceTest {
 		assertNull(result);
 		verify(jwtTokenService, times(1)).getEmailFromToken(token);
 		verify(clientRepository, never()).findByEmail(anyString());
+	}
+
+	@Test
+	void logout_WithouthLoginDone_ShouldReturnFalse() {
+		String token = "token";
+		assertFalse(authService.logout(token));
+		verify(clientRepository, times(0)).findByEmail(any(String.class));
 	}
 }

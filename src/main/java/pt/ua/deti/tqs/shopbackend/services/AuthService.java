@@ -98,4 +98,8 @@ public class AuthService {
         log.error("AuthService -- Get current client failed");
         return null;
     }
+
+    void clearWhiteList() {
+        whiteList.clear();
+    }
 }
