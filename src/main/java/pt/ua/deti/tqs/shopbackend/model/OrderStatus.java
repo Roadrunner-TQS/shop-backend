@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
 import pt.ua.deti.tqs.shopbackend.model.enums.Status;
 
 import java.util.UUID;
@@ -17,8 +17,8 @@ import java.util.UUID;
 public class OrderStatus {
 
     @Id
-    @GeneratedValue
-    @UuidGenerator
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "pt.ua.deti.tqs.shopbackend.config.CustomUUIDGenerator")
     private UUID id;
 
     @Column(nullable = false)
