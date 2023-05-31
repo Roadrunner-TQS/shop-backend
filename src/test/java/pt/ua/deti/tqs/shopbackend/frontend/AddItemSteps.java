@@ -132,4 +132,14 @@ public class AddItemSteps {
         ordersPage.waitcardOrder();
         assertTrue(ordersPage.getStatus());
     }
+
+    @And("I click on the remove button")
+    public void iClickOnTheRemoveButton() {
+        cartPage.clickRemoveButton();
+    }
+
+    @Then("I should not see the item in the cart")
+    public void iShouldSeeTheItemRemovedFromTheCart() {
+        assertEquals("0€", cartPage.getTotal());
+    }
 }
