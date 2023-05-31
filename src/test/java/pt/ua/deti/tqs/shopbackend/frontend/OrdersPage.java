@@ -22,6 +22,8 @@ public class OrdersPage {
 
     @FindBy(xpath = "/html/body/div/div[2]/div[1]")
     private WebElement cardOrder;
+    @FindBy(xpath = "/html/body/div/div[1]/div[1]/a")
+    private WebElement buttonHome;
 
     public OrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -44,5 +46,9 @@ public class OrdersPage {
     public void waitcardOrder() {
         webDriverWait.until(d -> cardOrder.isDisplayed());
         cardOrder.click();
+    }
+
+    public void clickHome() {
+        buttonHome.click();
     }
 }

@@ -28,7 +28,7 @@ public class AddItemSteps {
     public void setup() {
         driver = WebDriverManager.firefoxdriver().create();
         homePage = new HomePage(driver);
-        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     }
 
@@ -141,5 +141,30 @@ public class AddItemSteps {
     @Then("I should not see the item in the cart")
     public void iShouldSeeTheItemRemovedFromTheCart() {
         assertEquals("0€", cartPage.getTotal());
+    }
+
+    @And("I have an order")
+    public void iHaveAnOrder() {
+        webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/"));
+        homePage.clickFirstBook();
+        bookPage = new BookPage(driver);
+        webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/product/29bf50ad-5b9e-4f0e-9fb8-710f0f4b0ed6"));
+        bookPage.addItem();
+        bookPage.openCartButton();
+        assertEquals("1 Items", bookPage.getTotalItem());
+        bookPage.viewCart();
+        cartPage = new CartPage(driver);
+        assertDoesNotThrow(()-> cartPage.getItem());
+        cartPage.clickCheckoutButton();
+        checkoutPage = new CheckoutPage(driver);
+        checkoutPage.fillCheckoutForm(1234567891234567L, "John Doe", "2024-05-10", 123);
+        checkoutPage.selectPickup();
+        checkoutPage.submit();
+        webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/orders"));
+    }
+
+    @And("I am in the order page")
+    public void iAmInTheOrderPage() {
+        webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/orders"));
     }
 }
