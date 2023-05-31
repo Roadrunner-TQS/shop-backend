@@ -1,0 +1,235 @@
+[
+  {
+    "id": "3c997531-0bf4-4f50-8c7d-ee7d1911c34e",
+    "title": "A Game of Thrones",
+    "author": {
+      "id": "cf09c5c3-6c3c-4e13-a16e-067cc7b1d810"
+    },
+    "publisher": "Leya",
+    "year": 1996,
+    "categories": [
+      {
+        "id": "d7af20f8-6806-4371-9363-bc7d19e86215"
+      }
+    ],
+    "description": "A Game of Thrones is the first book in the A Song of Ice and Fire series, which tells the story of several noble families fighting for control of the Iron Throne in a fantastical world full of intrigue.",
+    "price": 29.99,
+    "discount": 0.25,
+    "pages": 694,
+    "imageUrl": "http://images.amazon.com/images/P/0553573403.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "7a5e9e1d-6f4c-4b0f-8c27-4c3e3b5b5cde",
+    "title": "The Lord of the Rings",
+    "author": {
+      "id": "85e23e6a-ba88-5af8-a338-0685f21e1d58"
+    },
+    "publisher": "Houghton Mifflin",
+    "year": 1954,
+    "categories": [{
+      "id": "d7af20f8-6806-4371-9363-bc7d19e86215"
+    }
+    ],
+    "description": "The Lord of the Rings is an epic fantasy novel that follows hobbit Frodo Baggins as he and a fellowship of other creatures embark on a quest to destroy the One Ring, which was created by the dark lord Sauron to conquer Middle-earth.",
+    "price": 24.99,
+    "discount": 0.1,
+    "pages": 1178,
+    "imageUrl": "http://images.amazon.com/images/P/0395498635.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "9a348d87-7242-4c9f-8c0a-1d9b3f2c3b1d",
+    "title": "To Kill a Mockingbird",
+    "author": {
+      "id": "dd7f072c-8d0c-3e87-aedf-98c12a6c6e6b",
+      "firstName": "Harper",
+      "lastName": "Lee",
+      "bio": "Harper Lee was an American novelist best known for her Pulitzer Prize-winning novel To Kill a Mockingbird. She was also awarded the Presidential Medal of Freedom for her contributions to literature."
+    },
+    "publisher": "J. B. Lippincott & Co.",
+    "year": 1960,
+    "categories": [
+      {
+        "id": "e5c5d5a5-bc7d-4b37-b1c6-9edc9d0e52d1"
+      },
+      {
+        "id": "d7af20f8-6806-4371-9363-bc7d19e86215"
+      }
+    ],
+    "description": "To Kill a Mockingbird is a novel set in the American South during the Great Depression. It follows the story of Scout Finch, a young girl who lives with her brother Jem and their father Atticus, a lawyer who defends a black man falsely accused of rape.",
+    "price": 19.99,
+    "discount": 0.15,
+    "pages": 281,
+    "imageUrl": "http://images.amazon.com/images/P/0397001517.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "42c2b578-7e3e-4f05-bf26-875bc90cf2eb",
+    "title": "1984",
+    "author": {
+      "id": "0c7b7a4c-7a16-4f19-84ea-d3c031ddc5bf"
+    },
+    "publisher": "Companhia das Letras",
+    "year": 1949,
+    "categories": [
+      {
+        "id": "a81a7a8d-83b6-4e06-97af-7528b08f3b0c"
+      }
+    ],
+    "description": "1984 is a dystopian novel that depicts a world where an authoritarian government controls all aspects of citizens' lives through constant surveillance and manipulative propaganda.",
+    "price": 19.99,
+    "discount": 0.1,
+    "pages": 328,
+    "imageUrl": "http://images.amazon.com/images/P/0451524934.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "b4b0b4a9-5b0a-4b0e-8b0a-4b0b4b0b4b0b",
+    "title": "The Great Gatsby",
+    "author":{
+      "id": "fb1fc7b4-0fa3-4dd5-8a34-9c547a7aeb3f"
+    },
+    "publisher": "Charles Scribner's Sons",
+    "year": 1925,
+    "categories": [
+      {
+        "id": "e192e9ac-98d6-4358-98c7-2b9202bcbdf6"
+      }
+    ],
+    "description": "The Great Gatsby is a novel set in the Roaring Twenties that follows the story of millionaire Jay Gatsby as he tries to win back the love of Daisy Buchanan, who is married to Tom Buchanan.",
+    "price": 14.99,
+    "discount": 0.1,
+    "pages": 180,
+    "imageUrl": "http://images.amazon.com/images/P/185326041X.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "a8577fb3-1f4d-4735-8f3a-dc6e9d83a26e",
+    "title": "The Name of the Wind",
+    "author": {
+      "id": "d454a4e4-4f4e-45c9-bf4c-4249b1ce30a5"
+    },
+    "publisher": "Arqueiro",
+    "year": 2007,
+    "categories":[{
+      "id": "d7af20f8-6806-4371-9363-bc7d19e86215"
+    }
+    ],
+    "description": "The Name of the Wind is the first book in The Kingkiller Chronicle series, which tells the story of Kvothe, a legendary wizard, musician, and war hero, who narrates his own story to a chronicler.",
+    "price": 24.99,
+    "discount": 0.1,
+    "pages": 662,
+    "imageUrl": "http://images.amazon.com/images/P/0756404746.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "aa6cf9b1-45e6-4b1a-9de9-3e48f0a14e4f",
+    "title": "The Catcher in the Rye",
+    "author": {
+      "id": "7d6480ed-4a48-4df3-bf23-3e66bbad7655"
+    },
+    "publisher": "Little, Brown and Company",
+    "year": 1951,
+    "categories": [
+      {
+        "id": "47ce22de-4f89-4a8e-8a97-58d1f7821413"
+      }
+    ],
+    "description": "The Catcher in the Rye is a novel that follows a teenage boy named Holden Caulfield, who has been expelled from his prep school and spends a few days in New York City before returning home.",
+    "price": 12.99,
+    "discount": 0.1,
+    "pages": 277,
+    "imageUrl": "http://images.amazon.com/images/P/0316769533.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "29bf50ad-5b9e-4f0e-9fb8-710f0f4b0ed6",
+    "title": "Pride and Prejudice",
+    "author": {
+      "id": "3e89ab55-4a62-43ee-aa18-97cc5a62a5fa"
+    },
+    "publisher": "T. Egerton, Whitehall",
+    "year": 1995,
+    "categories": [
+      {
+        "id": "7de11d8f-35e9-4ee4-bc7b-cc8df0d06b2f"
+      }
+    ],
+    "description": "Pride and Prejudice is a classic novel that follows the lives of the Bennet family and their five daughters, particularly the second eldest daughter Elizabeth, as they navigate relationships, societal pressures, and their own prejudices.",
+    "price": 9.99,
+    "discount": 0.1,
+    "pages": 279,
+    "imageUrl": "http://images.amazon.com/images/P/055321215X.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "e34eb5c3-3e0c-47f9-a1d6-c4027d3ab06f",
+    "title": "The Hobbit",
+    "author": {
+      "id": "85e23e6a-ba88-5af8-a338-0685f21e1d58"
+    },
+    "publisher": "Allen & Unwin",
+    "year": 1973,
+    "categories": [
+      {
+        "id": "d7af20f8-6806-4371-9363-bc7d19e86215"
+      }
+    ],
+    "description": "The Hobbit is a children's novel that tells the story of a hobbit named Bilbo Baggins, who is recruited by the wizard Gandalf to join a group of dwarves on a quest to reclaim their stolen treasure from the dragon Smaug.",
+    "price": 18.99,
+    "discount": 0.1,
+    "pages": 310,
+    "imageUrl": "http://images.amazon.com/images/P/0395177111.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "d9c9620f-2bb6-4f38-9f3f-8e1976ec0c2a",
+    "title": "The Chronicles of Narnia",
+    "author": {
+      "id": "f97aa4c3-2f67-417d-80e4-405dd51dcb2d"
+    },
+    "publisher": "Geoffrey Bles",
+    "year": 1950,
+    "categories": [
+      {
+        "id": "d7af20f8-6806-4371-9363-bc7d19e86215"
+      }
+    ],
+    "description": "The Chronicles of Narnia is a series of seven fantasy novels set in the fictional world of Narnia, where the protagonists have magical adventures and meet various mythological creatures.",
+    "price": 16.99,
+    "discount": 0.1,
+    "pages": 767,
+    "imageUrl": "http://images.amazon.com/images/P/0590257889.01.LZZZZZZZ.jpg"
+
+  },
+  {
+    "id": "3e1ab233-4ed7-4d85-8b35-c20a2da6bce8",
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "author": {
+      "id": "4db55f15-5d61-441c-8d2b-7253b5c96e35"
+    },
+    "publisher": "Pan Books",
+    "year": 1979,
+    "categories":[
+      {
+        "id": "a81a7a8d-83b6-4e06-97af-7528b08f3b0c"
+      }
+    ],
+    "description": "The Hitchhiker's Guide to the Galaxy is a comedic science fiction novel that follows the misadventures of human Arthur Dent and his alien friend Ford Prefect as they travel through space after Earth's destruction.",
+    "price": 13.99,
+    "discount": 0.1,
+    "pages": 193,
+    "imageUrl": "http://images.amazon.com/images/P/0671461494.01.LZZZZZZZ.jpg"
+  },
+  {
+    "id": "a5b2338f-9186-4531-b9a3-11d4c8b21f2c",
+    "title": "The Picture of Dorian Gray",
+    "author": {
+      "id": "bc16fa47-c0a1-4176-87ed-6d78a23a0e84"
+    },
+    "publisher": "Barnes &amp; Noble Books-Imports",
+    "year": 2003,
+    "categories": [
+      {
+        "id": "2d4493a3-12a9-42c7-8d1f-6d05a322f5d1"
+      }
+    ],
+    "description": "The Picture of Dorian Gray is a novel that explores the theme of vanity and its consequences, as a young man named Dorian Gray wishes to remain young and beautiful forever, even as his portrait ages and reflects the ugliness of his soul.",
+    "price": 8.99,
+    "discount": 10,
+    "pages": 254,
+    "imageUrl": "http://images.amazon.com/images/P/1593080255.01.LZZZZZZZ.jpg"
+  }
+]
