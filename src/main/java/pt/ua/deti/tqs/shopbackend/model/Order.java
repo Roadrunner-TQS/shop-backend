@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @GeneratedValue
-    @UuidGenerator
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "pt.ua.deti.tqs.shopbackend.config.CustomUUIDGenerator")
     private UUID id;
 
     @ManyToOne
@@ -37,7 +37,7 @@ public class Order {
     private List<OrderItem> items = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<OrderStatus> orderStatuses = new ArrayList<>();
+    private List<OrderStatus> orderStatus = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "pickup_id")
@@ -46,5 +46,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "pickup_location_id")
     private PickUpLocation pickUpLocation;
+
+    @Column(nullable = true)
+    private UUID trackingId;
+
 
 }

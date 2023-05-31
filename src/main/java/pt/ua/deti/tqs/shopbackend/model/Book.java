@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
-
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -18,6 +18,8 @@ import java.util.UUID;
 public class Book {
 
     @Id
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(name = "custom-uuid", strategy = "pt.ua.deti.tqs.shopbackend.config.CustomUUIDGenerator")
     private UUID id;
 
     @Column(nullable = false)
@@ -49,7 +51,7 @@ public class Book {
     private String imageUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
 
 }
 
