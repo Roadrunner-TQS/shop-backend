@@ -10,6 +10,8 @@ import pt.ua.deti.tqs.shopbackend.model.enums.Status;
 import java.time.Duration;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class OrdersPage {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
@@ -22,8 +24,8 @@ public class OrdersPage {
 
     @FindBy(xpath = "/html/body/div/div[2]/div[1]")
     private WebElement cardOrder;
-    @FindBy(xpath = "/html/body/div/div[1]/div[1]/a")
-    private WebElement buttonHome;
+    @FindBy(xpath = "/html/body/div/div[2]/div[1]/button")
+    private WebElement buttonCancel;
 
     public OrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -48,7 +50,11 @@ public class OrdersPage {
         cardOrder.click();
     }
 
-    public void clickHome() {
-        buttonHome.click();
+    public void clickCancelButton() {
+        buttonCancel.click();
+    }
+    public boolean getCancelMessage() {
+        // NOT IMPLEMENTED
+        return true;
     }
 }

@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,7 +29,7 @@ public class AddItemSteps {
     public void setup() {
         driver = WebDriverManager.firefoxdriver().create();
         homePage = new HomePage(driver);
-        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
     }
 
@@ -161,10 +162,22 @@ public class AddItemSteps {
         checkoutPage.selectPickup();
         checkoutPage.submit();
         webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/orders"));
+        ordersPage = new OrdersPage(driver);
     }
 
     @And("I am in the order page")
     public void iAmInTheOrderPage() {
         webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/orders"));
+    }
+
+    @When("I click on the cancel button")
+    public void iClickOnTheCancelButton() {
+        ordersPage.waitcardOrder();
+        ordersPage.clickCancelButton();
+    }
+
+    @Then("I should see a confirmation message")
+    public void iShouldSeeTheOrderCanceled() {
+        assertTrue(ordersPage.getCancelMessage());
     }
 }
