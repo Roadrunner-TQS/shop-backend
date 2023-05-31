@@ -5,7 +5,7 @@ public enum Status {
     SHIPPING,
     INTRANSIT,
     AVAILABLE,
-    COLLECTED,
+    DELIVERED,
     RETURNED,
     DENIED,
     FORGOTTEN,
