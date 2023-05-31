@@ -1,4 +1,4 @@
-package pt.ua.deti.tqs.shopbackend;
+package pt.ua.deti.tqs.shopbackend.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
