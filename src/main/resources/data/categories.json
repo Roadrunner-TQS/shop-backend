@@ -1,0 +1,37 @@
+[
+    {
+      "id": "2d4493a3-12a9-42c7-8d1f-6d05a322f5d1",
+      "name": "Gothic fiction",
+      "slug": "gothic-fiction"
+    },
+    {
+      "id": "a81a7a8d-83b6-4e06-97af-7528b08f3b0c",
+      "name": "Science fiction",
+      "slug": "science-fiction"
+    },
+    {
+      "id": "d7af20f8-6806-4371-9363-bc7d19e86215",
+      "name": "Fantasy",
+      "slug": "fantasy"
+    },
+    {
+      "id": "7de11d8f-35e9-4ee4-bc7b-cc8df0d06b2f",
+      "name": "Romance",
+      "slug": "romance"
+    },
+    {
+      "id": "47ce22de-4f89-4a8e-8a97-58d1f7821413",
+      "name": "Fiction",
+      "slug": "fiction"
+    },
+    {
+      "id": "e192e9ac-98d6-4358-98c7-2b9202bcbdf6",
+      "name": "Tragedy",
+      "slug": "tragedy"
+    },
+    {
+      "id": "e5c5d5a5-bc7d-4b37-b1c6-9edc9d0e52d1",
+      "name": "Coming-of-age story",
+      "slug": "coming-of-age-story"
+    }
+  ]

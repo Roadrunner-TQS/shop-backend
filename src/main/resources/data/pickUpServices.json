@@ -1,0 +1,22 @@
+[
+  {
+    "id" : "6a2d61a0-3903-4e5c-aed9-04a9d8b6d1ae",
+    "name" : "CTT Correios de Portugal",
+    "slug" : "ctt-correios-de-portugal"
+  },
+  {
+    "id" : "914bf1f6-0362-43a3-9ebe-12a97e11a4ad",
+    "name" : "DHL Portugal",
+    "slug" : "dhl-portugal"
+  },
+  {
+    "id": "f02dbb3c-8a54-4b73-a18d-9e0761a83e76",
+    "name" : "MRW Portugal",
+    "slug" : "mrw-portugal"
+  },
+  {
+    "id": "8e7e3a6c-3a85-40ff-9f8e-46a5b239ad8f",
+    "name": "RoadRunner",
+    "slug": "roadrunner"
+  }
+]
