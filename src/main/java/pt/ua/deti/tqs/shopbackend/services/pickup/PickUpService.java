@@ -39,17 +39,6 @@ public class PickUpService {
         RoadRunnerGeneralEntity ent = api.changePackageState(id, Status.CANCELLED.name(), "==shop==");
         if (ent != null && ent.getMsg().equals("PACKAGE UPDATED")) {
             log.info("PickUpService -- Cancel order -- order cancelled");
-            // TODO: REFACTORED
-//            Order order = orderRepository.findByTrackingId(id).orElse(null);
-//            if (order != null) {
-//                List<OrderStatus> orderStatuses = order.getOrderStatus();
-//                OrderStatus orderStatus = new OrderStatus(UUID.randomUUID(), Status.CANCELLED, System.currentTimeMillis());
-//                orderStatusRepository.save(orderStatus);
-//                orderStatuses.add(orderStatus);
-//                order.getOrderStatus().removeAll(order.getOrderStatus());
-//                order.getOrderStatus().addAll(orderStatuses);
-//                orderRepository.save(order);
-//            }
             return true;
         }
         log.error("PickUpService -- Cancel order -- order not cancelled");
