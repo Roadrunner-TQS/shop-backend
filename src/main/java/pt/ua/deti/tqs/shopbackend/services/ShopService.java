@@ -139,6 +139,7 @@ public class ShopService {
         List<Order> orders = orderRepository.findAllByClient(client);
         List<OrderDTO> orderDTOS = new ArrayList<>();
         for(Order order : orders) {
+            order.sort();
             ModelMapper modelMapper = new ModelMapper();
             OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
             orderDTOS.add(orderDTO);
