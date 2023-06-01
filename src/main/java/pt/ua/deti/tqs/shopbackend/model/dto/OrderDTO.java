@@ -7,6 +7,7 @@ import pt.ua.deti.tqs.shopbackend.model.OrderItem;
 import pt.ua.deti.tqs.shopbackend.model.OrderStatus;
 import pt.ua.deti.tqs.shopbackend.model.PickUpLocation;
 import pt.ua.deti.tqs.shopbackend.model.PickUpService;
+import pt.ua.deti.tqs.shopbackend.model.enums.Status;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,6 @@ public class OrderDTO {
     private PickUpService pickUpService;
     private PickUpLocation pickUpLocation;
     private UUID trackingId;
-    private String status;
+    private Status status;
 
 }
