@@ -11,10 +11,7 @@ import pt.ua.deti.tqs.shopbackend.services.pickup.PackDto;
 import pt.ua.deti.tqs.shopbackend.services.pickup.PickupApi;
 import pt.ua.deti.tqs.shopbackend.services.pickup.RoadRunnerPackageEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Slf4j
@@ -137,6 +134,7 @@ public class ShopService {
             return new ArrayList<>();
         }
         List<Order> orders = orderRepository.findAllByClient(client);
+        orders.sort(Comparator.comparing(Order::getDate));
         List<OrderDTO> orderDTOS = new ArrayList<>();
         for(Order order : orders) {
             order.sort();
