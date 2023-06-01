@@ -211,6 +211,7 @@ public class ShopService {
             return false;
         }
         orderRequest.setTrackingId(rrpe.getId());
+        orderRequest.setStatus(Status.PENDING);
         orderRepository.save(orderRequest);
         log.info("ShopService -- newOrder -- Request Success");
         return true;
