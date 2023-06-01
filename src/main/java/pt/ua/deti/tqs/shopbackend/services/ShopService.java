@@ -140,6 +140,7 @@ public class ShopService {
         List<OrderDTO> orderDTOS = new ArrayList<>();
         for(Order order : orders) {
             order.sort();
+            order.setStatus(order.getOrderStatus().get(order.getOrderStatus().size()-1).getStatus());
             ModelMapper modelMapper = new ModelMapper();
             OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
             orderDTOS.add(orderDTO);
