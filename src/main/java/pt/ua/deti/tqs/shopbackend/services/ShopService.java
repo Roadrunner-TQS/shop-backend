@@ -11,10 +11,7 @@ import pt.ua.deti.tqs.shopbackend.services.pickup.PackDto;
 import pt.ua.deti.tqs.shopbackend.services.pickup.PickupApi;
 import pt.ua.deti.tqs.shopbackend.services.pickup.RoadRunnerPackageEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Slf4j
@@ -137,8 +134,11 @@ public class ShopService {
             return new ArrayList<>();
         }
         List<Order> orders = orderRepository.findAllByClient(client);
+        orders.sort(Comparator.comparing(Order::getDate));
         List<OrderDTO> orderDTOS = new ArrayList<>();
         for(Order order : orders) {
+            order.sort();
+            order.setStatus(order.getOrderStatus().get(order.getOrderStatus().size()-1).getStatus());
             ModelMapper modelMapper = new ModelMapper();
             OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
             orderDTOS.add(orderDTO);
@@ -211,6 +211,7 @@ public class ShopService {
             return false;
         }
         orderRequest.setTrackingId(rrpe.getId());
+        orderRequest.setStatus(Status.PENDING);
         orderRepository.save(orderRequest);
         log.info("ShopService -- newOrder -- Request Success");
         return true;

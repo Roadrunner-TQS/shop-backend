@@ -39,17 +39,6 @@ public class PickUpService {
         RoadRunnerGeneralEntity ent = api.changePackageState(id, Status.CANCELLED.name(), "==shop==");
         if (ent != null && ent.getMsg().equals("PACKAGE UPDATED")) {
             log.info("PickUpService -- Cancel order -- order cancelled");
-            // TODO: REFACTORED
-//            Order order = orderRepository.findByTrackingId(id).orElse(null);
-//            if (order != null) {
-//                List<OrderStatus> orderStatuses = order.getOrderStatus();
-//                OrderStatus orderStatus = new OrderStatus(UUID.randomUUID(), Status.CANCELLED, System.currentTimeMillis());
-//                orderStatusRepository.save(orderStatus);
-//                orderStatuses.add(orderStatus);
-//                order.getOrderStatus().removeAll(order.getOrderStatus());
-//                order.getOrderStatus().addAll(orderStatuses);
-//                orderRepository.save(order);
-//            }
             return true;
         }
         log.error("PickUpService -- Cancel order -- order not cancelled");
@@ -57,7 +46,6 @@ public class PickUpService {
     }
 
     @Scheduled(cron = "0 0/1 * 1/1 * ?")
-    //                     ^ Mudar aqui os min
     public void updatePickupLocations() {
         log.info("PickUpService -- Update pick up locations -- on schedule");
         RoadRunnerPickupEntity ent = api.getPickupPoints();
@@ -72,7 +60,6 @@ public class PickUpService {
     }
 
     @Scheduled(cron = "0 0/1 * 1/1 * ?")
-    //                     ^ Mudar aqui os min
     public void fetchAllPackagesHistory() {
         log.info("PickUpService -- fetchAllPackagesHistory -- on schedule");
         RoadRunnerPackageHistoryEntity ent = api.fetchPackageHistory();
@@ -86,6 +73,8 @@ public class PickUpService {
                 if (order != null) {
                     order.getOrderStatus().clear();
                     order.getOrderStatus().addAll(statuses);
+                    order.sort();
+                    order.setStatus(statuses.get(statuses.size() - 1).getStatus());
                     orderRepository.save(order);
                 }
             }
