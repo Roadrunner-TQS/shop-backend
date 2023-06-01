@@ -37,7 +37,7 @@ public class DataInitializer implements CommandLineRunner {
         if (categoryRepository.count() == 0) {
             log.info("No categories found, creating some...");
             ObjectMapper mapper = new ObjectMapper();
-            File file = new File("shop-backend-login/src/main/resources/data/categories.json");
+            File file = new File("src/main/resources/data/categories.json");
             List<Category> categories = mapper.readValue(file, new TypeReference<ArrayList<Category>>() {});
             categoryRepository.saveAll(categories);
             log.info("Categories created");
@@ -45,7 +45,7 @@ public class DataInitializer implements CommandLineRunner {
         if (authorRepository.count() == 0) {
             log.info("No authors found, creating some...");
             ObjectMapper mapper = new ObjectMapper();
-            File file = new File("shop-backend-login/src/main/resources/data/authors.json");
+            File file = new File("src/main/resources/data/authors.json");
             List<Author> authors = mapper.readValue(file, new TypeReference<ArrayList<Author>>() {});
             authorRepository.saveAll(authors);
             log.info("Authors created");
@@ -54,7 +54,7 @@ public class DataInitializer implements CommandLineRunner {
         if (bookRepository.count() == 0) {
             log.info("No books found, creating some...");
             ObjectMapper mapper = new ObjectMapper();
-            File file = new File("shop-backend-login/src/main/resources/data/books.json");
+            File file = new File("src/main/resources/data/books.json");
             List<Book> books = mapper.readValue(file, new TypeReference<ArrayList<Book>>() {});
 
             bookRepository.saveAll(books);
@@ -64,7 +64,7 @@ public class DataInitializer implements CommandLineRunner {
         if (clientRepository.count() == 0) {
             log.info("No clients found, creating some...");
             ObjectMapper mapper = new ObjectMapper();
-            File file = new File("shop-backend-login/src/main/resources/data/clients.json");
+            File file = new File("src/main/resources/data/clients.json");
             List<Client> books = mapper.readValue(file, new TypeReference<ArrayList<Client>>() {});
             clientRepository.saveAll(books);
             log.info("Clients created");
@@ -73,7 +73,7 @@ public class DataInitializer implements CommandLineRunner {
         if (pickUpServiceRepository.count() == 0) {
             log.info("No PickUpServices found, creating some...");
             ObjectMapper mapper = new ObjectMapper();
-            File file = new File("shop-backend-login/src/main/resources/data/pickUpServices.json");
+            File file = new File("src/main/resources/data/pickUpServices.json");
             List<PickUpService> pickUpServices = mapper.readValue(file, new TypeReference<ArrayList<PickUpService>>() {});
             pickUpServiceRepository.saveAll(pickUpServices);
             log.info("PickUpServices created");
