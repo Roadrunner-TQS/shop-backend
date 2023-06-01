@@ -10,13 +10,13 @@ public class BookPage {
     @FindBy(xpath = "/html/body/div/div[2]/div[2]/div[2]/button")
     private WebElement addItemButton;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/label")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/label")
     private WebElement cartButton;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div/div/span[1]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div/span[1]")
     private WebElement numberItemLabel;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div/div/div/a")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div/div/a")
     private WebElement viewCartButton;
 
     public  BookPage(WebDriver driver) {

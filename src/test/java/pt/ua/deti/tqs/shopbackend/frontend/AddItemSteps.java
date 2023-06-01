@@ -55,6 +55,7 @@ public class AddItemSteps {
     @And("I click on the add to cart button")
     public void iClickOnTheAddToCartButton() {
         bookPage = new BookPage(driver);
+        webDriverWait.until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/product/29bf50ad-5b9e-4f0e-9fb8-710f0f4b0ed6"));
         bookPage.addItem();
         bookPage.openCartButton();
         assertEquals("1 Items", bookPage.getTotalItem());
@@ -63,6 +64,7 @@ public class AddItemSteps {
     @Then("I should see the item in the cart")
     public void iShouldSeeTheItemInTheCart() {
         bookPage.viewCart();
+        new WebDriverWait(driver, Duration.ofSeconds(60)).until(driver -> driver.getCurrentUrl().equals("http://localhost:5173/cart"));
         cartPage = new CartPage(driver);
         assertDoesNotThrow(()-> cartPage.getItem());
     }
