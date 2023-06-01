@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.sql.ast.tree.expression.Collation;
+import pt.ua.deti.tqs.shopbackend.model.enums.Status;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -49,6 +49,14 @@ public class Order {
 
     @Column(nullable = true)
     private UUID trackingId;
+
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public void sort() {
+        orderStatus.sort(Comparator.comparing(OrderStatus::getTimestamp));
+    }
 
 
 }

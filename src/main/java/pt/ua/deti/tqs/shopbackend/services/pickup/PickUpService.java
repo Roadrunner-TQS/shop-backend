@@ -46,7 +46,6 @@ public class PickUpService {
     }
 
     @Scheduled(cron = "0 0/1 * 1/1 * ?")
-    //                     ^ Mudar aqui os min
     public void updatePickupLocations() {
         log.info("PickUpService -- Update pick up locations -- on schedule");
         RoadRunnerPickupEntity ent = api.getPickupPoints();
@@ -61,7 +60,6 @@ public class PickUpService {
     }
 
     @Scheduled(cron = "0 0/1 * 1/1 * ?")
-    //                     ^ Mudar aqui os min
     public void fetchAllPackagesHistory() {
         log.info("PickUpService -- fetchAllPackagesHistory -- on schedule");
         RoadRunnerPackageHistoryEntity ent = api.fetchPackageHistory();
@@ -75,6 +73,8 @@ public class PickUpService {
                 if (order != null) {
                     order.getOrderStatus().clear();
                     order.getOrderStatus().addAll(statuses);
+                    order.sort();
+                    order.setStatus(statuses.get(statuses.size() - 1).getStatus());
                     orderRepository.save(order);
                 }
             }
